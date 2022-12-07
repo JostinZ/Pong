@@ -12,7 +12,8 @@ public class pong extends JFrame {
     Image dbImage;
 	Graphics dbGraphics;
 
-    public void paint(Graphics g) {
+	ball b = new ball (250,250);
+    public void paintComponent(Graphics g) {
 		dbImage = createImage(getWidth(), getHeight());
 		dbGraphics = dbImage.getGraphics();
 		draw(dbGraphics);
@@ -28,7 +29,7 @@ public class pong extends JFrame {
 		// g.drawString(""+b.p1score, 15, 20);
 		// g.drawString(""+b.p2score, 385, 20);
 		
-		// repaint();
+		//repaint();
 	}
 
     Dimension screenSize = new Dimension(screenWidth, screenHeight);
