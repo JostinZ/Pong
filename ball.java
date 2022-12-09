@@ -11,10 +11,10 @@ public class ball {
     int yDirection;
 	Rectangle r;
 	
-	// int p1score, p2score;
+	int p1score, p2score = 0;
 	
-	// Paddle p1 = new Paddle(10, 25, 1);
-	// Paddle p2 = new Paddle(485, 25, 2);
+	paddle p1 = new paddle(10, 25, 1);
+	paddle p2 = new paddle(485, 25, 2);
 	
 	// Rectangle ball;
 public ball(int x, int y){
@@ -24,7 +24,7 @@ public ball(int x, int y){
     //set the ball to move randomly 
     //
     //
-    //
+    
 
    r = new Rectangle(this.x, this.y, 25,25);
 }

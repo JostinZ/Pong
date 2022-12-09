@@ -1,8 +1,4 @@
 public class pongMain {
-    public static void main(String[] args) {
-        pong pg = new pong();
-   
-        
-        
+    public static void main(String[] args) { new pong(); }
+
     }
-}
