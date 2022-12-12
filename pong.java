@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.geom.Line2D;
+// import java.awt.image.BufferedImage;
+
 public class pong extends JFrame implements Runnable, KeyListener, ActionListener {
     static boolean button_up = false, button_down = false;
     static boolean player_2_button_up = false, player_2_button_down = false;
@@ -59,6 +62,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             player_2_button_down = true;
         }
     }
+    
     public void paint(Graphics g) {
         Image backGround = createImage(getWidth(), getHeight());
         Graphics bg = backGround.getGraphics();
@@ -75,7 +79,24 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         colorBg.setColor(new Color(0, 255, 255));
 
         g.drawImage(backGround, 0, 0, this);
-		g.drawRect(0,270,100,400);
+        
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(10));
+        g2.setColor(Color.white);
+		g2.drawRect(10,33,777,555);
+        g2.drawLine(400,0,400,600);
+        g2.drawOval(300,200,200,200);
+        g2.drawRect(10,200,100,200);
+        g2.drawRect(690,200,100,200);
+
+        repaint();
+        repaint();
+        repaint();
+        repaint();
+        repaint();
+        repaint();
+        repaint();
+        
     }
 
     public void run() {
@@ -103,7 +124,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
                 paddle2_y = paddle2_y - 2;
             }
 
-            repaint();
+            // repaint();
             try {
                 Thread.sleep(5);
             } catch (InterruptedException e) {
