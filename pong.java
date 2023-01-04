@@ -89,12 +89,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         g2.drawRect(10,200,100,200);
         g2.drawRect(690,200,100,200);
 
-        repaint();
-        repaint();
-        repaint();
-        repaint();
-        repaint();
-        repaint();
+
         repaint();
         
     }
@@ -129,14 +124,18 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
                 Thread.sleep(5);
             } catch (InterruptedException e) {
             }
+				
+            // if (( ball_y >= 200 && ball_y <= 358)){
+            //     System.out.println("ball is there");
+            // }
 
-            if (ball_x == 1 || ball_x == 790) {
-                if (ball_x == 1){
+            if ((ball_x <= 10 && (ball_y >= 200 && ball_y <= 358 )) || (ball_x >= 785 && (ball_y >= 200 && ball_y <= 358 )))  {
+                if (ball_x <= 10){
 					JOptionPane.showMessageDialog(
 						null, "<html><h1><b>player2 wins!!!</b></h1></html>"
 					);
 				}
-				if (ball_x == 790){
+				if (ball_x >= 785){
 					JOptionPane.showMessageDialog(
 						null, "<html><h1><b>player1 wins!!!</b></h1></html>"
 					);
@@ -153,16 +152,18 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
                 paddle1_y = 160;
                 paddle2_y = 160;
             }
-            if (ball_dx > 0 && ball_x > 715 && ball_y > paddle2_y &&
-                ball_y < paddle2_y + 110) {
+
+            // Needs to be reworked
+            if (ball_dx > 0 && ball_x > 715 && ball_y > paddle2_y && ball_y < paddle2_y + 50) {
                 ball_dx = -ball_dx;
             }
-            if (ball_dx < 0 && ball_x < 85 && ball_y > paddle1_y &&
-                ball_y < paddle1_y + 110) {
+
+            if (ball_dx < 0 && ball_x < 85 && ball_y > paddle1_y && ball_y < paddle1_y + 50) {
                 ball_dx = -ball_dx;
-            }
+                }
         }
-    }
+        }
+        
     public pong() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(new Color(0,110,31));
