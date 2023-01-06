@@ -7,8 +7,12 @@ import java.awt.geom.Line2D;
 public class pong extends JFrame implements Runnable, KeyListener, ActionListener {
     static boolean button_up = false, button_down = false;
     static boolean player_2_button_up = false, player_2_button_down = false;
+    static boolean button_left = false, button_right = false;
+    static boolean player_2_button_right = false, player_2_button_left = false;
     int paddle1_y = 160;
     int paddle2_y = 160;
+    int paddle1_x = 75;
+    int paddle2_x = 725;
     int ball_x = 10;
     int ball_y = 10;
     double ball_dx = 1;
@@ -26,11 +30,19 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
     }
 
 
+
+
+
     public void keyReleased(KeyEvent r) {
         if (r.getKeyCode() == KeyEvent.VK_W) {
             button_up = false;
         }
-
+        if (r.getKeyCode() == KeyEvent.VK_D) {
+            button_right = false;
+        }
+        if (r.getKeyCode() == KeyEvent.VK_A) {
+            button_left = false;
+        }
         if (r.getKeyCode() == KeyEvent.VK_S) {
             button_down = false;
         }
@@ -41,6 +53,14 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
 
         if (r.getKeyCode() == KeyEvent.VK_DOWN) {
             player_2_button_down = false;
+        }
+        
+        if (r.getKeyCode() == KeyEvent.VK_LEFT) {
+            player_2_button_left = false;
+        }
+
+        if (r.getKeyCode() == KeyEvent.VK_RIGHT) {
+            player_2_button_right = false;
         }
     }
 
@@ -53,7 +73,12 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         if (r.getKeyCode() == KeyEvent.VK_S) {
             button_down = true;
         }
-
+        if (r.getKeyCode() == KeyEvent.VK_D) {
+            button_right = true;
+        }
+        if (r.getKeyCode() == KeyEvent.VK_A) {
+            button_left = true;
+        }
         if (r.getKeyCode() == KeyEvent.VK_UP) {
             player_2_button_up = true;
         }
@@ -61,7 +86,22 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         if (r.getKeyCode() == KeyEvent.VK_DOWN) {
             player_2_button_down = true;
         }
+        
+        if (r.getKeyCode() == KeyEvent.VK_LEFT) {
+            player_2_button_left = true;
+        }
+
+        if (r.getKeyCode() == KeyEvent.VK_RIGHT) {
+            player_2_button_right = true;
+        }
     }
+    
+    //paddles
+    // public void paddle_1(int paddle1_x, int paddle1_y){
+    // }
+
+    // public void paddle_2(int paddle2_x, int paddle2_y){
+    // }
     
     public void paint(Graphics g) {
         Image backGround = createImage(getWidth(), getHeight());
@@ -69,11 +109,12 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         bg.setColor(new Color(200, 200, 200));
         bg.fillOval(ball_x, ball_y, 10, 10);
 
+
         Graphics renderPaddle = backGround.getGraphics();
         renderPaddle.setColor(Color.red);
-        renderPaddle.fillRect(75, paddle1_y, 10, 50);
+        renderPaddle.fillRect(paddle1_x, paddle1_y, 10, 50);
         renderPaddle.setColor(Color.blue);
-        renderPaddle.fillRect(725, paddle2_y, 10, 50);
+        renderPaddle.fillRect(paddle2_x, paddle2_y, 10, 50);
 
         Graphics colorBg = backGround.getGraphics();
         colorBg.setColor(new Color(0, 255, 255));
@@ -106,18 +147,61 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             }
 
             if (button_down == true) {
+                if(paddle1_y >= 533){
+                }
+                else{
                 paddle1_y = paddle1_y + 2;
+              }
             }
             if (button_up == true) {
-                paddle1_y = paddle1_y - 2;
-            }
+                if(paddle1_y <= 36){
 
+                }else{
+                paddle1_y = paddle1_y - 2;
+             }
+            }
+            // if (button_left == true){
+            //     if(paddle1_x <= 5){
+
+            //     }else{
+            //         paddle1_x = paddle1_x - 2;
+            //     }
+            // }
+            // if (button_right == true){
+            //     if(paddle1_x >= 785){
+
+            //     }else{
+            //         paddle1_x = paddle1_x + 2;
+            //     }
+            // }
             if (player_2_button_down == true) {
+                if(paddle2_y >= 533){
+                }
+                else{
                 paddle2_y = paddle2_y + 2;
+                }
             }
             if (player_2_button_up == true) {
+                if(paddle2_y <= 36){
+                    
+                }else{
                 paddle2_y = paddle2_y - 2;
+             }
             }
+            // if (player_2_button_left == true){
+            //     if(paddle1_x <= 5){
+
+            //     }else{
+            //         paddle2_x = paddle2_x - 2;
+            //     }
+            // }
+            // if (player_2_button_right == true){
+            //     if(paddle1_x >= 500){
+
+            //     }else{
+            //         paddle2_x = paddle2_x + 2;
+            //     }
+            // }
 
             // repaint();
             try {
@@ -125,11 +209,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             } catch (InterruptedException e) {
             }
 				
-            // if (( ball_y >= 200 && ball_y <= 358)){
-            //     System.out.println("ball is there");
-            // }
-
-            if ((ball_x <= 10 && (ball_y >= 200 && ball_y <= 358 )) || (ball_x >= 785 && (ball_y >= 200 && ball_y <= 358 )))  {
+            if ((ball_x <= 10 && (ball_y >= 200 && ball_y <= 370 )) || (ball_x >= 785 && (ball_y >= 200 && ball_y <= 370 )))  {
                 if (ball_x <= 10){
 					JOptionPane.showMessageDialog(
 						null, "<html><h1><b>player2 wins!!!</b></h1></html>"
@@ -151,9 +231,12 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
                 ball_dr = 1;
                 paddle1_y = 160;
                 paddle2_y = 160;
+                paddle1_x = 75;
+                paddle2_x = 725;
             }
 
             // Needs to be reworked
+
             if (ball_dx > 0 && ball_x > 715 && ball_y > paddle2_y && ball_y < paddle2_y + 50) {
                 ball_dx = -ball_dx;
             }
@@ -161,6 +244,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             if (ball_dx < 0 && ball_x < 85 && ball_y > paddle1_y && ball_y < paddle1_y + 50) {
                 ball_dx = -ball_dx;
                 }
+               
         }
         }
         
