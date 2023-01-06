@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.geom.Line2D;
+import java.awt.Font;
 // import java.awt.image.BufferedImage;
 
 public class pong extends JFrame implements Runnable, KeyListener, ActionListener {
@@ -9,6 +10,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
     static boolean player_2_button_up = false, player_2_button_down = false;
     static boolean button_left = false, button_right = false;
     static boolean player_2_button_right = false, player_2_button_left = false;
+   
     int paddle1_y = 160;
     int paddle2_y = 160;
     int paddle1_x = 75;
@@ -19,6 +21,8 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
     double ball_dr = 1;
     final int WIDTH = 800;
     final int HEIGHT = 600;
+    int player1_score = 0;
+    int player2_score = 0;
     JButton button;
  
     public void keyTyped(KeyEvent e) {}
@@ -37,15 +41,17 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         if (r.getKeyCode() == KeyEvent.VK_W) {
             button_up = false;
         }
-        if (r.getKeyCode() == KeyEvent.VK_D) {
-            button_right = false;
-        }
-        if (r.getKeyCode() == KeyEvent.VK_A) {
-            button_left = false;
-        }
+
         if (r.getKeyCode() == KeyEvent.VK_S) {
             button_down = false;
         }
+
+        // if (r.getKeyCode() == KeyEvent.VK_D) {
+        //     button_right = false;
+        // }
+        // if (r.getKeyCode() == KeyEvent.VK_A) {
+        //     button_left = false;
+        // }
 
         if (r.getKeyCode() == KeyEvent.VK_UP) {
             player_2_button_up = false;
@@ -55,13 +61,13 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             player_2_button_down = false;
         }
         
-        if (r.getKeyCode() == KeyEvent.VK_LEFT) {
-            player_2_button_left = false;
-        }
+        // if (r.getKeyCode() == KeyEvent.VK_LEFT) {
+        //     player_2_button_left = false;
+        // }
 
-        if (r.getKeyCode() == KeyEvent.VK_RIGHT) {
-            player_2_button_right = false;
-        }
+        // if (r.getKeyCode() == KeyEvent.VK_RIGHT) {
+        //     player_2_button_right = false;
+        // }
     }
 
     public void keyPressed(KeyEvent r) {
@@ -73,12 +79,14 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         if (r.getKeyCode() == KeyEvent.VK_S) {
             button_down = true;
         }
-        if (r.getKeyCode() == KeyEvent.VK_D) {
-            button_right = true;
-        }
-        if (r.getKeyCode() == KeyEvent.VK_A) {
-            button_left = true;
-        }
+
+        // if (r.getKeyCode() == KeyEvent.VK_D) {
+        //     button_right = true;
+        // }
+        // if (r.getKeyCode() == KeyEvent.VK_A) {
+        //     button_left = true;
+        // }
+
         if (r.getKeyCode() == KeyEvent.VK_UP) {
             player_2_button_up = true;
         }
@@ -87,30 +95,29 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             player_2_button_down = true;
         }
         
-        if (r.getKeyCode() == KeyEvent.VK_LEFT) {
-            player_2_button_left = true;
-        }
+        // if (r.getKeyCode() == KeyEvent.VK_LEFT) {
+        //     player_2_button_left = true;
+        // }
 
-        if (r.getKeyCode() == KeyEvent.VK_RIGHT) {
-            player_2_button_right = true;
-        }
+        // if (r.getKeyCode() == KeyEvent.VK_RIGHT) {
+        //     player_2_button_right = true;
+        // }
     }
     
-    //paddles
-    // public void paddle_1(int paddle1_x, int paddle1_y){
-    // }
-
-    // public void paddle_2(int paddle2_x, int paddle2_y){
-    // }
+ 
+    
+    
     
     public void paint(Graphics g) {
         Image backGround = createImage(getWidth(), getHeight());
+
         Graphics bg = backGround.getGraphics();
         bg.setColor(new Color(200, 200, 200));
         bg.fillOval(ball_x, ball_y, 10, 10);
 
 
         Graphics renderPaddle = backGround.getGraphics();
+
         renderPaddle.setColor(Color.red);
         renderPaddle.fillRect(paddle1_x, paddle1_y, 10, 50);
         renderPaddle.setColor(Color.blue);
@@ -129,8 +136,11 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
         g2.drawOval(300,200,200,200);
         g2.drawRect(10,200,100,200);
         g2.drawRect(690,200,100,200);
-
-
+        g2.setFont(new Font("Arial", Font.BOLD, 20)); 
+        g2.setColor(Color.BLUE);
+        g2.drawString("Score - Player2 [ " + player2_score + " ]", 500, 55 );
+        g2.setColor(Color.RED);
+        g2.drawString("Score - Player1 [ " + player1_score + " ]", 100, 55 );
         repaint();
         
     }
@@ -212,13 +222,16 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             if ((ball_x <= 10 && (ball_y >= 200 && ball_y <= 370 )) || (ball_x >= 785 && (ball_y >= 200 && ball_y <= 370 )))  {
                 if (ball_x <= 10){
 					JOptionPane.showMessageDialog(
-						null, "<html><h1><b>player2 wins!!!</b></h1></html>"
+						null, "<html><h1><b>player2 scores!!!</b></h1></html>"
 					);
+                    player2_score = player2_score + 1;
 				}
 				if (ball_x >= 785){
 					JOptionPane.showMessageDialog(
-						null, "<html><h1><b>player1 wins!!!</b></h1></html>"
+						null, "<html><h1><b>player1 scores!!!</b></h1></html>"
 					);
+                    player1_score = player1_score + 1;
+
 				}
 
                 button_up = false;
@@ -228,7 +241,7 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
                 ball_x = this.getWidth() / 2;
                 ball_y = this.getHeight() / 2;
                 ball_dx = 1;
-                ball_dr = 1;
+                ball_dr =  1;
                 paddle1_y = 160;
                 paddle2_y = 160;
                 paddle1_x = 75;
@@ -238,11 +251,11 @@ public class pong extends JFrame implements Runnable, KeyListener, ActionListene
             // Needs to be reworked
 
             if (ball_dx > 0 && ball_x > 715 && ball_y > paddle2_y && ball_y < paddle2_y + 50) {
-                ball_dx = -ball_dx;
+                ball_dx = -ball_dx * (Math.random() * 2) + 1;
             }
 
             if (ball_dx < 0 && ball_x < 85 && ball_y > paddle1_y && ball_y < paddle1_y + 50) {
-                ball_dx = -ball_dx;
+                ball_dx = -ball_dx * (Math.random() * 2) + 1;
                 }
                
         }
