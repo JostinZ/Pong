@@ -1,1 +1,1 @@
-# Pong
+# Pong, only the code portion, no visuals, but can use VS code for that.
